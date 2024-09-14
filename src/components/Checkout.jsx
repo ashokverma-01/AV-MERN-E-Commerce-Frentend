@@ -81,7 +81,7 @@ function Checkout() {
               <tr key={product.id}>
                 <td className="bg-dark text-light text-center">
                   <img
-                    src={product.image}
+                    src={`http://localhost:5000/${product.image}`}
                     alt={product.title}
                     style={{
                       width: "80px",
@@ -162,7 +162,7 @@ function Checkout() {
                 <button className="btn btn-secondary">
                   <Link
                     to="/"
-                    style={{ textDecoration: "none", color: "white" }}
+                    style={{ textDecoration: "none", color: "white",fontWeight:'bold' }}
                   >
                     Proceed To Pay
                   </Link>
@@ -172,7 +172,7 @@ function Checkout() {
                 <button className="btn btn-success">
                   <Link
                     to="/"
-                    style={{ textDecoration: "none", color: "white" }}
+                    style={{ textDecoration: "none", color: "white" ,fontWeight:'bold'}}
                   >
                     Continue Shopping
                   </Link>

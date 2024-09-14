@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function RelatedProduct({ category }) {
-  const { products } = useContext(AppContext);
+  const { products,addToCart } = useContext(AppContext);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function RelatedProduct({ category }) {
                 className="d-flex justify-content-center align-items-center p-3"
               >
                 <img
-                  src={product?.image}
+                  src={`http://localhost:5000/${product?.image}`}
                   className="card-img-top"
                   alt={product?.title || "Product Image"}
                   style={{
@@ -75,7 +75,15 @@ function RelatedProduct({ category }) {
                   <button className="btn btn-primary mx-3">
                     {product?.price} ₹
                   </button>
-                  <button className="btn btn-warning">Add To Cart</button>
+                  <button className="btn btn-warning"  onClick={() =>
+                          addToCart(
+                            product._id,
+                            product.title,
+                            product.price,
+                            1,
+                            product.image
+                          )
+                        }>Add To Cart</button>
                 </div>
               </div>
             </div>

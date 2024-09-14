@@ -13,6 +13,7 @@ import Profile from "./components/user/Profile";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import Address from "./components/Address";
+import AllProduct from "./admin/products/AllProduct";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/checkout" element={<Checkout/>}/>
           <Route path="/address" element={<Address/>}/>
+          <Route path="/allproduct" element={<AllProduct/>}/>
         </Routes>
         <Footer/>
       </Router>

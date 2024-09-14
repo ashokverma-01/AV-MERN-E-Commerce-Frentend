@@ -70,7 +70,7 @@ function Cart() {
               >
                 <div className="cart-image">
                   <img
-                    src={product.image}
+                    src={`http://localhost:5000/${product.image}`}
                     alt={product.title}
                     style={{
                       width: "120px",

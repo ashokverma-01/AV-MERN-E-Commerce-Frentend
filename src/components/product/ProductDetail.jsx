@@ -30,7 +30,7 @@ function ProductDetail() {
     <div style={{marginTop:'20px'}}>
     <div className='container text-center my-5 p-5' style={{display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>
         <div className='left'>
-            <img src={product?.image} alt=''  style={{
+            <img src={`http://localhost:5000/${product?.image}`} alt=''  style={{
                       width: "250px",
                       height: "250px",
                       borderRadius: "10px",

@@ -6,8 +6,10 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  
+  
 
-  const { setFilterData, products, auth, cart, setAuth } =
+  const { setFilterData, products, auth, cart, user } =
     useContext(AppContext);
 
   const allProducts = () => {
@@ -21,8 +23,13 @@ function Navbar() {
       )
     );
   };
-  const filterPrice = (price) => {
-    setFilterData(products.filter((data) => data.price === Number(price)));
+  const filterPrice = (minPrice, maxPrice) => {
+    const filteredProducts = products.filter(
+      (product) => product.price >= minPrice && product.price <= maxPrice
+    );
+
+    // Now set the state or perform any other actions with filteredProducts
+    setFilterData(filteredProducts);
   };
 
   const submitHandler = (e) => {
@@ -33,11 +40,7 @@ function Navbar() {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setAuth(false);
-    navigate("/login");
-  };
+ 
 
   return (
     <div>
@@ -67,9 +70,11 @@ function Navbar() {
           <div className="right">
             {auth && (
               <>
+                <Link to="/allproduct" className="btn btn-warning mx-3">
+                  Admin
+                </Link>
                 <Link
                   to="/cart"
-                  type="button"
                   className="btn btn-primary position-relative mx-3"
                 >
                   <span className="material-symbols-outlined">
@@ -82,12 +87,21 @@ function Navbar() {
                     </span>
                   )}
                 </Link>
-                <Link to="/profile" className="btn btn-success mx-3">
-                  <span class="material-symbols-outlined">manage_accounts</span>
+                <Link to="/profile" className=" mx-3">
+                  {user && (
+                    <img
+                      src={`http://localhost:5000/${user.image}`}
+                      alt="Product"
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                        objectFit: "cover",
+                       borderRadius:'50%',
+                       border:'2px solid yellow'
+                      }}
+                    />
+                  )}
                 </Link>
-                <button className="btn btn-danger mx-3" onClick={logout}>
-                  <span class="material-symbols-outlined">logout</span>
-                </button>
               </>
             )}
             {!auth && (
@@ -116,23 +130,23 @@ function Navbar() {
             <div className="items" onClick={() => filterCategory("camera")}>
               Camera
             </div>
-            <div className="items" onClick={() => filterCategory("headPhone")}>
+            <div className="items" onClick={() => filterCategory("headphone")}>
               HeadPhone
             </div>
-            <div className="items" onClick={() => filterCategory("earbuds")}>
+            <div className="items" onClick={() => filterCategory("birds")}>
               Earbuds
             </div>
             <div className="items" onClick={() => filterCategory("tv")}>
               Tv
             </div>
-            <div className="items" onClick={() => filterPrice("1000")}>
-              20000
+            <div className="items" onClick={() => filterPrice(1000, 5000)}>
+              1000 - 5000
             </div>
-            <div className="items" onClick={() => filterPrice("1500")}>
-              30000
+            <div className="items" onClick={() => filterPrice(5000, 10000)}>
+              5000 - 10000
             </div>
-            <div className="items" onClick={() => filterPrice("3000")}>
-              40000
+            <div className="items" onClick={() => filterPrice(10000, 30000)}>
+              10000 - 30000
             </div>
           </div>
         )}

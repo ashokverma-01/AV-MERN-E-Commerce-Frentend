@@ -25,7 +25,7 @@ function ShowProduct() {
                     className="d-flex  justify-content-center align-items-center p-3 "
                   >
                     <img
-                      src={product?.image}
+                      src={`http://localhost:5000/${product?.image}`}
                       class="card-img-top"
                       alt=""
                       style={{

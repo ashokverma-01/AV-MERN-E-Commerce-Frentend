@@ -13,6 +13,8 @@ function AppState(props) {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userAddress ,setUserAddress] = useState("")
+  
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -46,26 +48,7 @@ function AppState(props) {
     }
   }, []);
 
-  // User registration function
-  const register = async ({ name, email, password }) => {
-    try {
-      const api = await axios.post(
-        "http://localhost:5000/api/user/register",
-        { name, email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      ShowToast(api.data.message, Severty.SUCCESS);
-      return api.data;
-    } catch (error) {
-      ShowToast("Registration error", Severty.ERROR);
-      return null;
-    }
-  };
-
+ 
   // User login function
   const login = async ({ email, password }) => {
     try {
@@ -145,7 +128,7 @@ function AppState(props) {
           Auth: token,
         },
       });
-      console.log(api.data.cartItems.items);
+      // console.log(api.data.cartItems.items);
       setCart(api.data.cartItems.items);
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -252,11 +235,30 @@ function AppState(props) {
       }
     };
 
+
+  //delete product form  table
+  const deleteProduct = async (productId) => {
+    try {
+      const api = await axios.delete(
+        `http://localhost:5000/api/product/delete-product/${productId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Auth: token,
+          },
+        }
+      );
+      ShowToast(api.data.message, Severty.SUCCESS);
+      setLoading(!loading);
+    } catch (error) {
+      console.error("Decrease Qty:", error);
+    }
+  };
+  
   return (
     <AppContext.Provider
       value={{
         products,
-        register,
         login,
         token,
         auth,
@@ -272,6 +274,7 @@ function AppState(props) {
         cartClear,
         addAddress,
         userAddress,
+        deleteProduct,
       }}
     >
       {props.children}
